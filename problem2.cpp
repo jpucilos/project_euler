@@ -9,8 +9,17 @@ By considering the terms in the Fibonacci sequence whose values do not exceed fo
 */
 
 #include <iostream>
+#include <cstdint>
 using namespace std;
 
 int main(){
-	
+	uint32_t prev1 = 1;
+	uint32_t prev2 = 1;
+	uint64_t sum = 0;
+	for (uint32_t i = 2; i <= 4000000; i = prev1 + prev2){
+		if(i % 2 == 0) sum += i;
+		prev2 = prev1;
+		prev1 = i;
+	}
+	cout << sum << '\n';
 }
