@@ -45,7 +45,7 @@ uint64_t prodOfDigits(int startIndex, int endIndex){
 
 int main(){
 	ifstream file;
-	file.open("problem8.txt");
+	file.open("p008.txt");
 	uint64_t max = 1;
 	
 	for(int i = 0; i < fileSize; i++)
