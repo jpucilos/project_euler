@@ -17,40 +17,41 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
 #include<iostream>
 using namespace std;
 
-int collatz[1000000];
+uint64_t collatz[1000000];
 
-
+//Add memoization for speed
 uint64_t collatzSequence(uint64_t n){
-	uint64_t temp = n;
 	uint64_t count = 0;
 	while(n != 1){
-		if(collatz[n] != 0){
-			if(n % 2 == 0)
+		if(n < 100000){
+			if(collatz[n] != 0)
+				return collatz[n] + count;
+			else if(n % 2 == 0)
 				n /= 2;
 			else
-				n = 3*n + 1;
-			count++;
+				n = 3*n + 1;	
 		}
-		else{
-			collatz[temp] = count + collatz[n]; 
-			return collatz[temp];
-		}
+		else if(n % 2 == 0)
+			n /= 2;
+		else
+			n = 3*n + 1;
+		count++;
 	}
 	return count;
 }
 
-//Add memoization for speed
 int main(){
 	
 	for(int i = 0; i < 1000000; i++)
 		collatz[1000000] = 0;
+		
 	uint64_t ans = 0;
 	uint64_t longestChain = 0;
+	
 	for (uint64_t n = 1; n < 1000000; n++){
-		cout << "Testing n = " << n << '\n';
-		uint64_t tempChain = collatzSequence(n);
-		if(tempChain > longestChain) {
-			longestChain = tempChain;
+		collatz[n] = collatzSequence(n);
+		if(collatz[n] > longestChain) {
+			longestChain = collatz[n];
 			ans = n;
 		}
 	}
